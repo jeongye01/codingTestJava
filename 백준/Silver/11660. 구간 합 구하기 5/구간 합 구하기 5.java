@@ -11,11 +11,9 @@ public class Main {
 		int N=Integer.parseInt(sin[0]);
 		int M=Integer.parseInt(sin[1]);
 		int[][] arr=new int[N+1][N+1];
-		int[][] origin=new int[N+1][N+1];
 		for(int i=1;i<N+1;i++) {
 			sin=in.readLine().split(" ");
 			for(int j=1;j<N+1;j++) {
-				origin[i][j]=Integer.parseInt(sin[j-1]);
 				arr[i][j]=arr[i][j-1]+arr[i-1][j]-arr[i-1][j-1]+Integer.parseInt(sin[j-1]);
 			}
 		}
@@ -35,3 +33,4 @@ public class Main {
 	}
 
 }
+
