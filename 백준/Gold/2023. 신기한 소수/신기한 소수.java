@@ -1,5 +1,3 @@
-
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -7,14 +5,13 @@ import java.util.*;
 
 
 public class Main {
-	static List<Integer> primes=new ArrayList<>();
     static int N;
 	private static void findPrime(int idx,int prime) {
        if(idx==N) {
     	   System.out.println(prime);
     	   return;
        }
-       for(int i=idx>0?1:2;i<=9;i++) {
+       for(int i=1;i<=9;i++) {
     	   boolean isPrime=false;
     	   int newPrime=prime*10+i;
     	   for(int j=2;j<=(int)Math.sqrt(newPrime);j++) {
@@ -23,7 +20,7 @@ public class Main {
     			  break;
     		   }
     	   }
-    	   if(!isPrime)findPrime(idx+1,newPrime);
+    	   if(!isPrime && newPrime!=1)findPrime(idx+1,newPrime);
        }
        
 	}
