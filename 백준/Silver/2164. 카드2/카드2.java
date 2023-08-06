@@ -4,26 +4,25 @@ import java.io.InputStreamReader;
 import java.util.ArrayDeque;
 import java.util.Deque;
 
-
 public class Main {
 	static int N;
-	
+
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		int N = Integer.parseInt(br.readLine());
 		Deque<Integer> queue = new ArrayDeque<>();
-		for(int i=1;i<=N;i++) {
+		for (int i = 1; i <= N; i++) {
 			queue.add(i);
-			
+
 		}
-		boolean flag=true;
-		while(queue.size()>1) {
-			if(flag)queue.poll();
-			else queue.add(queue.poll());
-			flag=!flag;
+		while (queue.size() > 2) {
+			queue.poll();
+			queue.add(queue.poll());
 		}
+
+		if(queue.size()>1)queue.poll();
+
 		System.out.println(queue.poll());
-		
 
 	}
 
