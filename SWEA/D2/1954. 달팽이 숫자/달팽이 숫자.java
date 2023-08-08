@@ -3,9 +3,6 @@ import java.io.BufferedWriter;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
-import java.util.StringTokenizer;
-
-import java.util.Scanner;
 
 public class Solution {
 	static int N;
@@ -15,12 +12,12 @@ public class Solution {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		int T = Integer.parseInt(br.readLine());
 		for (int tc = 1; tc <= T; tc++) {
 			N = Integer.parseInt(br.readLine());
 			board = new int[N][N];
-			int num = 1, row = 0, col = 0;
-			int d = 0;
+			int num = 1, row = 0, col = 0, d = 0;
 			for (int i = 0; i < N * N; i++) {
 				board[row][col] = num;
 				int drow = row + dy[d];
@@ -31,17 +28,18 @@ public class Solution {
 				row += dy[d];
 				col += dx[d];
 				num += 1;
-
 			}
-			System.out.println("#" + tc);
+			StringBuilder s = new StringBuilder("#");
+			s.append(tc).append("\n");
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
-					System.out.print(board[i][j] + " ");
+					s.append(board[i][j]).append(" ");
 				}
-				System.out.println();
+				s.append("\n");
 			}
+			bw.write(s.toString());
 		}
-
+		bw.flush();
+		bw.close();
 	}
-
 }
