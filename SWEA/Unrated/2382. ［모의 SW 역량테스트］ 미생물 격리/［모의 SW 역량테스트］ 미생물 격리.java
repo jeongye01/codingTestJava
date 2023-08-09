@@ -33,7 +33,7 @@ public class Solution {
 
 				for (int i = 0; i < data.size(); i++) {
 					int y = data.get(i)[0] + dy[data.get(i)[3]], x = data.get(i)[1] + dx[data.get(i)[3]];
-					if (x == 0 || x == N - 1 || y == 0 || y == N - 1) {// 약품 처리 공간 진입
+					if (x == 0 || x == N - 1 || y == 0 || y == N - 1) {
 						tmp[i][2] = (int) data.get(i)[2] / 2;
 						tmp[i][3] = data.get(i)[3] == 1 || data.get(i)[3] == 3 ? data.get(i)[3] + 1
 								: data.get(i)[3] - 1;
@@ -46,11 +46,11 @@ public class Solution {
 				}
 				Arrays.sort(tmp, new Comparator<int[]>() {
 					public int compare(int[] row1, int[] row2) {
-						int cmp = Integer.compare(row1[0], row2[0]); // 첫 번째 열을 기준으로 정렬
+						int cmp = Integer.compare(row1[0], row2[0]); 
 						if (cmp != 0) {
 							return cmp;
 						}
-						return Integer.compare(row1[1], row2[1]); // 두 번째 열을 기준으로 정렬
+						return Integer.compare(row1[1], row2[1]); 
 					}
 				});
 
