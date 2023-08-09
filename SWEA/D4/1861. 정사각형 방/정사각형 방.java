@@ -33,6 +33,7 @@ public class Solution {
 			ans = dp[i][j];
 			roomNo = room[i][j];
 		}
+	   
 
 	}
 
@@ -61,7 +62,9 @@ public class Solution {
 			dp = new int[N][N];
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
-					bfs(i, j);
+					if(dp[i][j]==0) {
+						bfs(i, j);
+					}
 
 				}
 			}
