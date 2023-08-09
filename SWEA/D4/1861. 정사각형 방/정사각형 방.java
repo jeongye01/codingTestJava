@@ -8,10 +8,10 @@ public class Solution {
 	static int[] dy = { -1, 1, 0, 0 };
 
 	private static void bfs(int i, int j) {
-		Deque<int[]> deque = new ArrayDeque<>();
-		deque.add(new int[] { i, j });
-		while (deque.size() > 0) {
-			int[] now = deque.poll();
+	    Queue<int[]> que = new LinkedList<>();
+		que.add(new int[] { i, j });
+		while (que.size() > 0) {
+			int[] now = que.poll();
 			for (int d = 0; d < 4; d++) {
 				int ni = now[0] + dy[d], nj = now[1] + dx[d];
 				if (ni >= 0 && ni < N && nj >= 0 && nj < N && room[ni][nj] - room[now[0]][now[1]] == 1) {
@@ -19,7 +19,7 @@ public class Solution {
 						dp[i][j] += dp[ni][nj];
 					} else {
 						dp[i][j] += 1;
-						deque.add(new int[] { ni, nj });
+						que.offer(new int[] { ni, nj });
 					}
 				}
 			}
