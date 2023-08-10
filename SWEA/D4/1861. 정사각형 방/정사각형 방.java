@@ -1,4 +1,3 @@
-
 import java.io.*;
 import java.util.*;
 
@@ -16,10 +15,10 @@ public class Solution {
 
 		for (int d = 0; d < 4; d++) {
 			int nr = r + dy[d], nc = c + dx[d];
-			if (nr >= 0 && nr < N && nc >= 0 && nc < N) { 
-				if(room[nr][nc] - room[r][c] == 1)	{
-					dp[r][c]+=dfs(nr,nc);
-				}															
+			if (nr >= 0 && nr < N && nc >= 0 && nc < N) {
+				if (room[nr][nc] - room[r][c] == 1) {
+					dp[r][c] += dfs(nr, nc);
+				}
 			}
 		}
 
@@ -40,7 +39,6 @@ public class Solution {
 			st = new StringTokenizer(br.readLine());
 			N = Integer.parseInt(st.nextToken());
 			room = new int[N][N];
-			// 룸 번호 정보 받기
 			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(br.readLine());
 				for (int j = 0; j < N; j++) {
@@ -53,22 +51,21 @@ public class Solution {
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < N; j++) {
 					dfs(i, j);
-					if(dp[i][j]==ans) {
-						if(roomNo>room[i][j]) {
-							roomNo=room[i][j];
+					if (dp[i][j] == ans) {
+						if (roomNo > room[i][j]) {
+							roomNo = room[i][j];
 						}
 					}
-					if(dp[i][j]>ans) {
-						ans=dp[i][j];
-						roomNo=room[i][j];
-						
+					if (dp[i][j] > ans) {
+						ans = dp[i][j];
+						roomNo = room[i][j];
+
 					}
 				}
 			}
 			sb.append("#").append(tc).append(" ").append(roomNo).append(" ").append(ans).append("\n");
 
 		}
-		// 테스트 케이스 모두 진행 후 한번에 출력
 		bw.write(sb.toString());
 		bw.flush();
 		bw.close();
