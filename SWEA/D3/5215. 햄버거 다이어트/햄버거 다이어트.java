@@ -6,7 +6,7 @@ class Solution {
 	static int ans,N,L,tasteSum;
 	static int[][] arr;
 	private static void bt(int idx,int p,int c,int h) {
-		if(idx==N) {
+		if(idx>=N) {
 			 ans=Math.max(ans, p);
 			 return;
 		}
@@ -29,6 +29,7 @@ class Solution {
 			N= Integer.parseInt(st.nextToken());
 			L= Integer.parseInt(st.nextToken());
 			arr=new int[N][2];
+            tasteSum=0;
 			for(int i=0;i<N;i++) {
 				st = new StringTokenizer(br.readLine());
 				arr[i][0]=Integer.parseInt(st.nextToken());
