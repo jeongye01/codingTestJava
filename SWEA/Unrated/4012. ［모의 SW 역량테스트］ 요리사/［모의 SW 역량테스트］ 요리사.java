@@ -17,7 +17,8 @@ public class Solution {
 					}
 				}
 			}
-			ans = Math.min(ans, Math.abs(food1 - food2));
+            int res=Math.abs(food1 - food2);
+            ans = ans > res ? res : ans;
 			return;
 		}
         if(idx==N) {
@@ -32,7 +33,6 @@ public class Solution {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		StringBuilder sb = new StringBuilder();
 		int T = Integer.parseInt(st.nextToken());
@@ -52,9 +52,8 @@ public class Solution {
 			sb.append("#").append(tc).append(" ").append(ans).append("\n");
 
 		}
-		bw.write(sb.toString());
-		bw.flush();
-		bw.close();
+		System.out.print(sb);
+	
 
 	}
 
