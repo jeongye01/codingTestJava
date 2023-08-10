@@ -5,8 +5,6 @@ public class Solution {
 	static List<Integer> cards0;
 	static int cards[];
 
-	static List<int[]> perm;
-
 	private static boolean np() {
 		int N = 9;
 		int i = N - 1;
@@ -40,7 +38,6 @@ public class Solution {
 			st = new StringTokenizer(br.readLine());
 			cards0 = new ArrayList<>();
 			cards = new int[9];
-			perm = new ArrayList<>();
 			for (int i = 0; i < 9; i++) {
 				cards0.add(Integer.parseInt(st.nextToken()));
 			}
@@ -53,31 +50,32 @@ public class Solution {
 			}
 
 			Arrays.sort(cards);
+			int win = 0, lose = 0;
 			do {
-				perm.add(cards.clone());
+				
+				
+					int user1 = 0, user2 = 0;
+					for (int j = 0; j < 9; j++) {
+						if (cards0.get(j) > cards[j]) {
+							user1 += (cards0.get(j) +cards[j]);
+						}
+						if (cards0.get(j) < cards[j]) {
+							user2 += (cards0.get(j) + cards[j]);
+						}
+
+					}
+					if (user1 > user2) {
+						win += 1;
+					}
+					if (user1 < user2) {
+						lose += 1;
+					}
+
+				
 			} while (np());
 			
 
-			int win = 0, lose = 0;
-			for (int i = 0; i < perm.size(); i++) {
-				int user1 = 0, user2 = 0;
-				for (int j = 0; j < 9; j++) {
-					if (cards0.get(j) > perm.get(i)[j]) {
-						user1 += (cards0.get(j) + perm.get(i)[j]);
-					}
-					if (cards0.get(j) < perm.get(i)[j]) {
-						user2 += (cards0.get(j) + perm.get(i)[j]);
-					}
-
-				}
-				if (user1 > user2) {
-					win += 1;
-				}
-				if (user1 < user2) {
-					lose += 1;
-				}
-
-			}
+			
 			System.out.println("#" + tc + " " + win + " " + lose);
 
 		}
