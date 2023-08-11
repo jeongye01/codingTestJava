@@ -1,9 +1,8 @@
 import java.io.*;
 import java.util.*;
 
-public class  Solution {
-	static List<Integer> cards0;
-	static int cards[];
+public class Solution {
+	static int cards0[],cards[],gyus[];
 
 	private static boolean np() {
 		int N = 9;
@@ -15,18 +14,18 @@ public class  Solution {
 		int j = N - 1;
 		while (cards[i - 1] >= cards[j])
 			--j;
-		swap(cards, i - 1, j);
+		swap(i - 1, j);
 		int k = N - 1;
 		while (i < k) {
-			swap(cards, i++, k--);
+			swap( i++, k--);
 		}
 		return true;
 	}
 
-	private static void swap(int[] p, int a, int b) {
-		int temp = p[b];
-		p[b] = p[a];
-		p[a] = temp;
+	private static void swap(int a, int b) {
+		int temp = cards[b];
+		cards[b] = cards[a];
+		cards[a] = temp;
 	}
 
 	public static void main(String[] args) throws IOException {
@@ -36,14 +35,16 @@ public class  Solution {
 		int T = Integer.parseInt(st.nextToken());
 		for (int tc = 1; tc <= T; tc++) {
 			st = new StringTokenizer(br.readLine());
-			cards0 = new ArrayList<>();
+			cards0 = new int[9];
 			cards = new int[9];
+			gyus=new int[19];
 			for (int i = 0; i < 9; i++) {
-				cards0.add(Integer.parseInt(st.nextToken()));
+				cards0[i]=Integer.parseInt(st.nextToken());
+				gyus[cards0[i]]=1;
 			}
 			int k = 0;
 			for (int i = 1; i <= 18; i++) {
-				if (!cards0.contains(i)) {
+				if (gyus[i]==0) {
 					cards[k++] = i;
 				}
 
@@ -55,11 +56,11 @@ public class  Solution {
 
 				int user1 = 0, user2 = 0;
 				for (int j = 0; j < 9; j++) {
-					if (cards0.get(j) > cards[j]) {
-						user1 += (cards0.get(j) + cards[j]);
+					if (cards0[j] > cards[j]) {
+						user1 += (cards0[j] + cards[j]);
 					}
-					if (cards0.get(j) < cards[j]) {
-						user2 += (cards0.get(j) + cards[j]);
+					if (cards0[j] < cards[j]) {
+						user2 += (cards0[j] + cards[j]);
 					}
 
 				}
