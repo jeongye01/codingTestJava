@@ -39,8 +39,9 @@ public class Solution {
 			cards = new int[9];
 			gyus=new int[19];
 			for (int i = 0; i < 9; i++) {
-				cards0[i]=Integer.parseInt(st.nextToken());
-				gyus[cards0[i]]=1;
+					int input=Integer.parseInt(st.nextToken());;
+				cards0[i]=input;
+				gyus[input]=1;
 			}
 			int k = 0;
 			for (int i = 1; i <= 18; i++) {
