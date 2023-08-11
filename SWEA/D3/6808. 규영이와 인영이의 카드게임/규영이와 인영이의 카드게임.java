@@ -27,22 +27,7 @@ public class Solution {
  
             }
             do {
-                 int user1 = 0, user2 = 0;
-           for (int j = 0; j < 9; j++) {
-               if (cards0[j] > p[j]) {
-                   user1 += (cards0[j] + p[j]);
-               }
-               else if (cards0[j] < p[j]) {
-                   user2 += (cards0[j] + p[j]);
-               }
-
-           }
-           if (user1 > user2) {
-               win++;
-           }
-           else if (user1 < user2) {
-               lose++;
-           }
+                judge(cards0,p);
              
             } while (np(p));
  
