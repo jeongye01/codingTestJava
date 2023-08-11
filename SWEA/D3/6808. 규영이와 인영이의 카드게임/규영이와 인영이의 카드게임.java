@@ -1,7 +1,7 @@
 import java.io.*;
 import java.util.*;
 
-public class Solution {
+public class  Solution {
 	static List<Integer> cards0;
 	static int cards[];
 
@@ -31,7 +31,7 @@ public class Solution {
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
+		StringBuilder sb = new StringBuilder();
 		StringTokenizer st = new StringTokenizer(br.readLine());
 		int T = Integer.parseInt(st.nextToken());
 		for (int tc = 1; tc <= T; tc++) {
@@ -52,33 +52,30 @@ public class Solution {
 			Arrays.sort(cards);
 			int win = 0, lose = 0;
 			do {
-				
-				
-					int user1 = 0, user2 = 0;
-					for (int j = 0; j < 9; j++) {
-						if (cards0.get(j) > cards[j]) {
-							user1 += (cards0.get(j) +cards[j]);
-						}
-						if (cards0.get(j) < cards[j]) {
-							user2 += (cards0.get(j) + cards[j]);
-						}
 
+				int user1 = 0, user2 = 0;
+				for (int j = 0; j < 9; j++) {
+					if (cards0.get(j) > cards[j]) {
+						user1 += (cards0.get(j) + cards[j]);
 					}
-					if (user1 > user2) {
-						win += 1;
-					}
-					if (user1 < user2) {
-						lose += 1;
+					if (cards0.get(j) < cards[j]) {
+						user2 += (cards0.get(j) + cards[j]);
 					}
 
-				
+				}
+				if (user1 > user2) {
+					win += 1;
+				}
+				if (user1 < user2) {
+					lose += 1;
+				}
+
 			} while (np());
-			
 
-			
-			System.out.println("#" + tc + " " + win + " " + lose);
+			sb.append("#").append(tc).append(" ").append(win).append(" ").append(lose).append("\n");
 
 		}
+		System.out.println(sb);
 
 	}
 
