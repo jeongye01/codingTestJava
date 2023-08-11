@@ -37,7 +37,7 @@ public class Solution {
              
             } while (np());
  
-            sb.append("#").append(tc).append(" ").append(win).append(" ").append(lose).append("\n");
+            printAnswer(tc);
  
         }
         System.out.println(sb);
@@ -84,6 +84,9 @@ public class Solution {
         int temp = p[b];
         p[b] =p[a];
         p[a] = temp;
+    }
+    public static void printAnswer(int tc) {
+        sb.append("#").append(tc).append(" ").append(win).append(" ").append(lose).append("\n");
     }
  
 }
