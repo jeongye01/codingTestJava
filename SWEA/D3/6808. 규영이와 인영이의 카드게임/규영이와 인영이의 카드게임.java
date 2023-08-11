@@ -5,19 +5,16 @@ public class Solution {
 
 	static int win = 0, lose = 0;
 	static StringBuilder sb = new StringBuilder();
-    static int[] p,cards0,gyus;
  
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        
-        StringTokenizer st = new StringTokenizer(br.readLine());
-        int T = Integer.parseInt(st.nextToken());
+        int T = Integer.parseInt(br.readLine());
         for (int tc = 1; tc <= T; tc++) {
         	win = 0; lose = 0;
-            st = new StringTokenizer(br.readLine());
-            cards0 = new int[9];
-            p = new int[9];
-            gyus =new int[19];
+        	StringTokenizer st = new StringTokenizer(br.readLine());
+            int[] cards0 = new int[9];
+            int p[] = new int[9];
+            int gyus[] =new int[19];
             for (int i = 0; i < 9; i++) {
                 cards0[i]=Integer.parseInt(st.nextToken());
                 gyus[cards0[i]]=1;
@@ -29,13 +26,10 @@ public class Solution {
                 }
  
             }
- 
-            Arrays.sort(p);
-           
             do {
-                judge(cards0);
+                judge(cards0,p);
              
-            } while (np());
+            } while (np(p));
  
             printAnswer(tc);
  
@@ -43,7 +37,7 @@ public class Solution {
         System.out.println(sb);
  
     }
-    public static void judge(int[] cards0) {
+    public static void judge(int[] cards0,int[] p) {
     	   int user1 = 0, user2 = 0;
            for (int j = 0; j < 9; j++) {
                if (cards0[j] > p[j]) {
@@ -62,7 +56,7 @@ public class Solution {
            }
 
     }
-    public static boolean np() {
+    public static boolean np(int[] p) {
         int N = 9;
         int i = N - 1;
         while (i > 0 && p[i - 1] >=p[i])
@@ -72,15 +66,15 @@ public class Solution {
         int j = N - 1;
         while (p[i - 1] >=p[j])
             --j;
-        swap(i - 1, j);
+        swap(p,i - 1, j);
         int k = N - 1;
         while (i < k) {
-            swap( i++, k--);
+            swap(p, i++, k--);
         }
         return true;
     }
  
-    public static void swap( int a, int b) {
+    public static void swap(int[] p ,int a, int b) {
         int temp = p[b];
         p[b] =p[a];
         p[a] = temp;
