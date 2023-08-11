@@ -3,13 +3,14 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
-public class Main {
+public class Main{
 	static int N, M, R;
 	static int arr[][];
 
 	private static void rotate() {
 		int rst = 0, cst = 0, ced = M - 1, red = N - 1;
-		while (red - rst >= 1 && ced - cst >= 1) {
+		int cnt=Math.min(N, M)/2;
+		for(int d=0;d<cnt;d++) {
 			for (int t = 0; t < R; t++) {
 				int corner = arr[rst][cst];
 
