@@ -4,6 +4,8 @@ import java.util.*;
 public class Solution {
     
  
+    static int win = 0, lose = 0;
+	static StringBuilder sb = new StringBuilder();
     private static boolean np(int[] p) {
         int N = 9;
         int i = N - 1;
@@ -30,10 +32,11 @@ public class Solution {
  
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        StringBuilder sb = new StringBuilder();
+        
         StringTokenizer st = new StringTokenizer(br.readLine());
         int T = Integer.parseInt(st.nextToken());
         for (int tc = 1; tc <= T; tc++) {
+            win=0;lose=0;
             st = new StringTokenizer(br.readLine());
             int[] cards0 = new int[9];
             int[] cards = new int[9];
@@ -51,7 +54,7 @@ public class Solution {
             }
  
             Arrays.sort(cards);
-            int win = 0, lose = 0;
+           
             do {
  
                 int user1 = 0, user2 = 0;
@@ -79,5 +82,6 @@ public class Solution {
         System.out.println(sb);
  
     }
+ 
  
 }
