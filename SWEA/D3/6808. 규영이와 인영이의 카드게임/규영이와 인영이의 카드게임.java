@@ -43,7 +43,7 @@ public class Solution {
                if (cards0[j] > p[j]) {
                    user1 += (cards0[j] + p[j]);
                }
-               if (cards0[j] < p[j]) {
+               else if (cards0[j] < p[j]) {
                    user2 += (cards0[j] + p[j]);
                }
 
@@ -51,7 +51,7 @@ public class Solution {
            if (user1 > user2) {
                win++;
            }
-           if (user1 < user2) {
+           else if (user1 < user2) {
                lose++;
            }
 
