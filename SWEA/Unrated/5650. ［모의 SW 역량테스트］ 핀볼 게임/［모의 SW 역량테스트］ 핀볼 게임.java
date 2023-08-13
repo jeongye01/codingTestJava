@@ -74,8 +74,10 @@ public class Solution {
 					max = p;
 				}
 				return;
+			}else if(n==0) {
+				continue;
 			}
-			if (n >= 1 && n <= 5) {// 블록을 만났을 때
+			else if (n <= 5) {// 블록을 만났을 때
 				p++;
 				d = block[n - 1][d];
 
