@@ -23,9 +23,10 @@ public class Solution {
 				for (int j = 0; j < N; j++) {
 					int input = Integer.parseInt(st.nextToken());
 					board[i][j] = input;
-					if (input >= 6) {
-						wormhole[input - 6][(wormhole[input - 6][4]++)%4] = i;
-						wormhole[input - 6][(wormhole[input - 6][4]++)%4] = j;
+					if (input >= 6 && input <= 10) {
+						int wh[]=wormhole[input - 6];
+						wh[(wh[4]++) % 4] = i;
+						wh[(wh[4]++) % 4] = j;
 
 					}
 
@@ -51,6 +52,8 @@ public class Solution {
 
 	}
 
+
+
 	public static int play(int r, int c, int d) {
 		int p = 0;
 		int sr = r;
@@ -60,7 +63,7 @@ public class Solution {
 			r += dy[d];
 			c += dx[d];
 
-			if (r < 0 || r >= N || c < 0 || c >= N) {
+			if ( r < 0 || r >= N || c < 0 || c >= N) {
 				return p * 2 + 1;
 			}
 			int n = board[r][c];
@@ -72,13 +75,14 @@ public class Solution {
 				p++;
 				d = block[n - 1][d];
 
-			} else  { // 웜홀을 만났을 때
-				if (r == wormhole[n - 6][0] && c == wormhole[n - 6][1]) {
-					r = wormhole[n - 6][2];
-					c = wormhole[n - 6][3];
+			} else if (n >= 6 && n <= 10) { // 웜홀을 만났을 때
+				int[] wh = wormhole[n - 6];
+				if (r == wh[0] && c == wh[1]) {
+					r = wh[2];
+					c = wh[3];
 				} else {
-					r = wormhole[n - 6][0];
-					c = wormhole[n - 6][1];
+					r = wh[0];
+					c = wh[1];
 
 				}
 
