@@ -3,7 +3,8 @@ import java.util.*;
 
 public class Solution {
 
-	static int N, board[][], max;
+	static int N, max;
+    static int[][] board=new int[102][102];
 	static int[] dx = { 0, 0, -1, 1 };
 	static int[] dy = { -1, 1, 0, 0 };
 	static int wormhole[][];
@@ -20,7 +21,6 @@ public class Solution {
 
 		for (int tc = 1; tc <= T; tc++) {
 			N = Integer.parseInt(br.readLine().trim());
-			board = new int[N + 2][N + 2];
 			wormhole=new int[5][4];
 			for (int i = 0; i <= N + 1; i++) {
 			    board[i][0]=board[i][N+1]=board[0][i]=board[N+1][i]=5;
