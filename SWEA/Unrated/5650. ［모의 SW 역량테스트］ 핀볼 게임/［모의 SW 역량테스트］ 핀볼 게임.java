@@ -7,27 +7,29 @@ public class Solution {
 	static int[] dx = { 0, 0, -1, 1 };
 	static int[] dy = { -1, 1, 0, 0 };
 	static int wormhole[][];
-	static Scanner sc=new Scanner(System.in);
 	static int[][] block = { { 1, 3, 0, 2 }, { 3, 0, 1, 2 }, { 2, 0, 3, 1 }, { 1, 2, 3, 0 }, { 1, 0, 3, 2 } };
 
 	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st = new StringTokenizer(br.readLine().trim());
 		StringBuilder sb = new StringBuilder();
 
-		int T = sc.nextInt();
+		int T = Integer.parseInt(st.nextToken());
 
 		
 
 		for (int tc = 1; tc <= T; tc++) {
-			N = sc.nextInt();
+			N = Integer.parseInt(br.readLine().trim());
 			board = new int[N + 2][N + 2];
+			wormhole=new int[5][4];
 			for (int i = 0; i <= N + 1; i++) {
 			    board[i][0]=board[i][N+1]=board[0][i]=board[N+1][i]=5;
 			}
-			wormhole = new int[5][4];
 			max = 0;
 			for (int i = 1; i <= N; i++) {
+				st = new StringTokenizer(br.readLine().trim());
 				for (int j = 1; j <= N; j++) {
-					int input = sc.nextInt();
+					int input =Integer.parseInt(st.nextToken());
 					if (input >= 6 && input <= 10) {
 						if (wormhole[input - 6][0] == 0 && wormhole[input - 6][2] == 0) {
 							wormhole[input - 6][0] = i;
