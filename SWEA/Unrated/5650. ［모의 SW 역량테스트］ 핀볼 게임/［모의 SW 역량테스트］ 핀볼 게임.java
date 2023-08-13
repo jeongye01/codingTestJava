@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Solution {
 
-	static int N, max, board[][],dp[][][];
+	static int N, max, board[][];
 	static int wormhole[][]=new int[5][5];
 	static int[] dx = { 0, 0, -1, 1 };
 	static int[] dy = { -1, 1, 0, 0 };
@@ -17,7 +17,6 @@ public class Solution {
 		for (int tc = 1; tc <= T; tc++) {
 			N = Integer.parseInt(br.readLine().trim());
 			board = new int[N + 2][N + 2];
-			dp = new int[N+2][N + 2][4];
 			for (int i = 0; i <= N + 1; i++) {
 				board[i][0] = board[i][N + 1] = board[0][i] = board[N + 1][i] = 5;
 			}
@@ -29,12 +28,13 @@ public class Solution {
 				st = new StringTokenizer(br.readLine().trim());
 				for (int j = 1; j <= N; j++) {
 					int input = Integer.parseInt(st.nextToken());
-					if (input >= 6 && input <= 10) {
+					board[i][j] = input;
+					if (input >= 6) {
 						wormhole[input - 6][wormhole[input - 6][4]++]=i;
 						wormhole[input - 6][wormhole[input - 6][4]++]=j;
 
 					}
-					board[i][j] = input;
+					
 				}
 
 			}
@@ -70,7 +70,6 @@ public class Solution {
 				if (p > max) {
 					max = p;
 				}
-				dp[r][c][d]=p;
 				return;
 			} else if (n == 0) {
 				continue;
@@ -88,10 +87,6 @@ public class Solution {
 
 				}
 
-			}
-			if(dp[r][c][d]>0) {
-				p+=dp[r][c][d];
-				break;
 			}
 
 		}
