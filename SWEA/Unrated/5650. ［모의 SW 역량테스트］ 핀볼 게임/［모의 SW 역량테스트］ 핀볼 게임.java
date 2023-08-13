@@ -72,7 +72,7 @@ public class Solution {
 				p++;
 				d = block[n - 1][d];
 
-			} else if (n >= 6) { // 웜홀을 만났을 때
+			} else  { // 웜홀을 만났을 때
 				if (r == wormhole[n - 6][0] && c == wormhole[n - 6][1]) {
 					r = wormhole[n - 6][2];
 					c = wormhole[n - 6][3];
