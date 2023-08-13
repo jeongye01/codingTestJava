@@ -3,8 +3,7 @@ import java.util.*;
 
 public class Solution {
 
-	static int N, max,r,c;
-    static int[][] board;
+	static int N, max,board[][];
 	static int[] dx = { 0, 0, -1, 1 };
 	static int[] dy = { -1, 1, 0, 0 };
 	static int wormhole[][];
@@ -47,8 +46,7 @@ public class Solution {
 				for (int j = 1; j <= N; j++) {
 					for (int d = 0; d < 4; d++) {
 						if (board[i][j] == 0) {
-							r=i;c=j;
-							play(d);
+							play(i,j,d);
 
 						}
 					}
@@ -62,7 +60,7 @@ public class Solution {
 
 	}
 
-	public static void play(int d) {
+	public static void play(int r,int c,int d) {
 		int p = 0;
 		int sr = r;
 		int sc = c;
@@ -81,7 +79,7 @@ public class Solution {
 				p++;
 				d = block[n - 1][d];
 
-			} else if (n >= 6 && n <= 10) { // 웜홀을 만났을 때
+			} else if (n >= 6) { // 웜홀을 만났을 때
 				if (r == wormhole[n - 6][0] && c == wormhole[n - 6][2]) {
 					r = wormhole[n - 6][1];
 					c = wormhole[n - 6][3];
