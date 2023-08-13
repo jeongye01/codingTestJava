@@ -18,17 +18,14 @@ public class Solution {
 			N = Integer.parseInt(br.readLine().trim());
 			board = new int[N][N];
 			max = 0;
-			for (int cnt = 0; cnt < 5; cnt++) {
-				wormhole[cnt][4] = 0;
-			}
 			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(br.readLine().trim());
 				for (int j = 0; j < N; j++) {
 					int input = Integer.parseInt(st.nextToken());
 					board[i][j] = input;
 					if (input >= 6) {
-						wormhole[input - 6][wormhole[input - 6][4]++] = i;
-						wormhole[input - 6][wormhole[input - 6][4]++] = j;
+						wormhole[input - 6][(wormhole[input - 6][4]++)%4] = i;
+						wormhole[input - 6][(wormhole[input - 6][4]++)%4] = j;
 
 					}
 
