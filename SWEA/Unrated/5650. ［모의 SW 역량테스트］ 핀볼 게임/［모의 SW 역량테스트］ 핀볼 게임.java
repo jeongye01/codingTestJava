@@ -3,8 +3,8 @@ import java.util.*;
 
 public class Solution {
 
-	static int N, max;
-    static int[][] board=new int[102][102];
+	static int N, max,r,c;
+    static int[][] board;
 	static int[] dx = { 0, 0, -1, 1 };
 	static int[] dy = { -1, 1, 0, 0 };
 	static int wormhole[][];
@@ -14,13 +14,10 @@ public class Solution {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringTokenizer st = new StringTokenizer(br.readLine().trim());
 		StringBuilder sb = new StringBuilder();
-
 		int T = Integer.parseInt(st.nextToken());
-
-		
-
 		for (int tc = 1; tc <= T; tc++) {
 			N = Integer.parseInt(br.readLine().trim());
+			board=new int[N+2][N+2];
 			wormhole=new int[5][4];
 			for (int i = 0; i <= N + 1; i++) {
 			    board[i][0]=board[i][N+1]=board[0][i]=board[N+1][i]=5;
@@ -50,7 +47,8 @@ public class Solution {
 				for (int j = 1; j <= N; j++) {
 					for (int d = 0; d < 4; d++) {
 						if (board[i][j] == 0) {
-							play(i, j, d);
+							r=i;c=j;
+							play(d);
 
 						}
 					}
@@ -64,7 +62,7 @@ public class Solution {
 
 	}
 
-	public static void play(int r, int c, int d) {
+	public static void play(int d) {
 		int p = 0;
 		int sr = r;
 		int sc = c;
