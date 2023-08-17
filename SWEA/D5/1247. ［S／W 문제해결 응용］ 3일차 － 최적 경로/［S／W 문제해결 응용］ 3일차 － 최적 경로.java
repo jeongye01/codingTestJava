@@ -70,16 +70,14 @@ public class Solution {
 
 	private static void calcDistance() {
 		int tmp = Math.abs(arrX[order[0]] - office[0]) + Math.abs(arrY[order[0]] - office[1]);
-		if (tmp > ans) {
-			return;
-		}
+		
 		for (int i = 1; i < N; i++) {
-			int cur = order[i];
-			int prev = order[i - 1];
-			tmp += (Math.abs(arrX[cur] - arrX[prev]) + Math.abs(arrY[cur] - arrY[prev]));
 			if (tmp > ans) {
 				return;
 			}
+			int cur = order[i];
+			int prev = order[i - 1];
+			tmp += (Math.abs(arrX[cur] - arrX[prev]) + Math.abs(arrY[cur] - arrY[prev]));
 		}
 		tmp += Math.abs(arrX[order[N-1]] - home[0]) + Math.abs(arrY[order[N-1]] - home[1]);
 		if (tmp >= ans) {
