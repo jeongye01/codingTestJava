@@ -3,7 +3,7 @@ import java.util.*;
 
 public class Solution {
 	static int N, board[][], lineCnt, coreCnt;
-	static List<int[]> processorPos;
+	static List<int[]> processorPos=new ArrayList<>();;
 	static int[] dx = { 0, -1, 0, 1 };
 	static int[] dy = { -1, 0, 1, 0 };
 
@@ -17,7 +17,6 @@ public class Solution {
 			board = new int[N][N];
 			lineCnt = 0;
 			coreCnt = 0;
-			processorPos = new ArrayList<>();
 			for (int i = 0; i < N; i++) {
 				st = new StringTokenizer(br.readLine().trim());
 				for (int j = 0; j < N; j++) {
@@ -32,7 +31,7 @@ public class Solution {
 			}
 
 			bt(0, 0);
-
+			processorPos.clear();
 			sb.append("#").append(tc).append(" ").append(lineCnt).append("\n");
 		}
 
