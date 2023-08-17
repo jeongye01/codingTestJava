@@ -5,19 +5,17 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Solution {
-	static int N, ans,  order[];
-	static int office[] = new int[2], home[] = new int[2],arrX[]=new int[10], arrY[]=new int[10];
+	static int N, ans;
+	static int office[] = new int[2], home[] = new int[2],arrX[]=new int[10], arrY[]=new int[10],order[]=new int[10];
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
 		StringBuilder sb = new StringBuilder();
-		StringTokenizer st;
 		int T = Integer.parseInt(br.readLine());
 		for (int tc = 1; tc <= T; tc++) {
 			N = Integer.parseInt(br.readLine());
 			ans = Integer.MAX_VALUE;
-			order = new int[N];
-			st = new StringTokenizer(br.readLine().trim());
+			StringTokenizer st = new StringTokenizer(br.readLine().trim());
 			
 			office[0] = Integer.parseInt(st.nextToken());
 			office[1] = Integer.parseInt(st.nextToken());
