@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.*;
 
 public class Solution {
-	static int N, board[][], board_copy[][], lineCnt, coreCnt;
+	static int N, board[][], lineCnt, coreCnt;
 	static List<int[]> processorPos;
 	static int[] dx = { 0, -1, 0, 1 };
 	static int[] dy = { -1, 0, 1, 0 };
@@ -31,15 +31,6 @@ public class Solution {
 				}
 			}
 
-			board_copy = new int[N][N];
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					board_copy[i][j] = board[i][j];
-				}
-			}
-			// board[1][0]=100;
-			// System.out.println(board_copy[0][0]+" asdfasdf");
-			// System.out.println(processorPos.size());
 			bt(0, 0);
 
 			sb.append("#").append(tc).append(" ").append(lineCnt).append("\n");
