@@ -65,19 +65,15 @@ public class Solution {
 			return;
 		}
 		int[] pos = processorPos.get(idx);
-		int[][] board_copy = new int[N][N];
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				board_copy[i][j] = board[i][j];
-			}
-		}
 
 		for (int d = 0; d < 4; d++) {
 			int nx = pos[1] + dx[d], ny = pos[0] + dy[d];
 			boolean canConnect = true;
+			int depth = 0;
 			while (ny >= 0 && ny < N && nx >= 0 && nx < N) {
 				if (board[ny][nx] == 0) {
 					board[ny][nx] = 2;
+					depth++;
 				} else {
 					canConnect = false;
 					break;
@@ -92,8 +88,8 @@ public class Solution {
 
 			nx = pos[1] + dx[d];
 			ny = pos[0] + dy[d];
-			while (ny >= 0 && ny < N && nx >= 0 && nx < N) {
-				board[ny][nx] = board_copy[ny][nx];
+			for (int k = 0; k < depth; k++) {
+				board[ny][nx] = 0;
 				nx += dx[d];
 				ny += dy[d];
 			}
