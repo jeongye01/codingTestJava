@@ -5,8 +5,8 @@ import java.io.InputStreamReader;
 import java.util.StringTokenizer;
 
 public class Solution {
-	static int N, ans, arrX[], arrY[], order[];
-	static int office[] = new int[2], home[] = new int[2];
+	static int N, ans,  order[];
+	static int office[] = new int[2], home[] = new int[2],arrX[]=new int[10], arrY[]=new int[10];
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -16,8 +16,6 @@ public class Solution {
 		for (int tc = 1; tc <= T; tc++) {
 			N = Integer.parseInt(br.readLine());
 			ans = Integer.MAX_VALUE;
-			arrX = new int[N];
-			arrY = new int[N];
 			order = new int[N];
 			st = new StringTokenizer(br.readLine().trim());
 			
@@ -35,7 +33,6 @@ public class Solution {
 				order[i] = i;
 			}
 			do {
-				// System.out.println(Arrays.toString(order));
 				calcDistance();
 
 			} while (NP(order));
