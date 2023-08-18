@@ -15,17 +15,17 @@ public class Solution {
 			st = new StringTokenizer(br.readLine().trim());
 			N = Integer.parseInt(st.nextToken());
 			M = Integer.parseInt(st.nextToken());
-			graph = new int[N + 1][N + 1];
+			graph = new int[N][N];
 
 			for (int i = 0; i < M; i++) {
 				st = new StringTokenizer(br.readLine().trim());
-				int a = Integer.parseInt(st.nextToken());
-				int b = Integer.parseInt(st.nextToken());
+				int a = Integer.parseInt(st.nextToken())-1;
+				int b = Integer.parseInt(st.nextToken())-1;
 				graph[a][b] = graph[b][a] = 1;
 
 			}
-			visited = new int[N + 1];
-			for (int i = 1; i <= N; i++) {
+			visited = new int[N];
+			for (int i = 0; i < N; i++) {
 
 				visited[i] = 1;
 				dfs(i, 1);
@@ -43,7 +43,7 @@ public class Solution {
 			ans = dis;
 		}
 
-		for (int i = 1; i <= N; i++) {
+		for (int i = 0; i < N; i++) {
 
 			if (graph[node][i] == 1 && visited[i] == 0) {
 				visited[i] = 1;
