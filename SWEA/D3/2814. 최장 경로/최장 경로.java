@@ -37,14 +37,14 @@ public class Solution {
 
 	public static void dfs(int node, int dis) {
 		visited[node] = true;
-		if (dis > ans) {
-			ans = dis;
-		}
 		for (int i = 0; i < N; i++) {
 			if (graph[node][i] && !visited[i]) {
 				dfs(i, dis + 1);
 			}
 		}
 		visited[node] = false;
+		if (dis > ans) {
+			ans = dis;
+		}
 	}
 }
