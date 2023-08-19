@@ -31,23 +31,22 @@ public class Main {
 		distance[0][0][0] = 1;
 		while (!q.isEmpty()) {
 			int[] now = q.poll();
-			int x=now[0],y=now[1],breaked=now[2];
+			int x = now[0], y = now[1], breaked = now[2];
 			if (x == M - 1 && y == N - 1) {
 				return distance[N - 1][M - 1][breaked];
 			}
 			for (int d = 0; d < 4; d++) {
 				int nx = x + dx[d], ny = y + dy[d];
-				if (nx >= 0 && nx < M && ny >= 0 && ny < N) {
-					if (board[ny][nx] == 0 && distance[ny][nx][breaked]==0) {
-						distance[ny][nx][breaked] = distance[y][x][breaked]+1;
-						q.add(new int[] { nx, ny, breaked });
-					} else if(board[ny][nx] == 1 && breaked==0){
-						distance[ny][nx][1] = distance[y][x][breaked]+1;
-						q.add(new int[] { nx, ny, 1 });
+				if (nx < 0 || nx >= M || ny < 0 || ny >= N)
+					continue;
 
-					}
-					
-					
+				if (board[ny][nx] == 0 && distance[ny][nx][breaked] == 0) {
+					distance[ny][nx][breaked] = distance[y][x][breaked] + 1;
+					q.add(new int[] { nx, ny, breaked });
+				} else if (board[ny][nx] == 1 && breaked == 0) {
+					distance[ny][nx][1] = distance[y][x][breaked] + 1;
+					q.add(new int[] { nx, ny, 1 });
+
 				}
 			}
 		}
