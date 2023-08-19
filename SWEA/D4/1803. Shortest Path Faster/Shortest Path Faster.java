@@ -33,24 +33,7 @@ public class Solution {
 				graph.get(b).add(new Edge(a, c));
 
 			}
-
-			PriorityQueue<Edge> q = new PriorityQueue<>();
-			q.offer(new Edge(S,0));
-
-			while (!q.isEmpty()) {
-				Edge now = q.poll();
-				if (dist[now.v] < now.w) {
-					continue;
-				}
-				for (Edge i : graph.get(now.v)) {
-					Long cost = now.w + i.w;
-
-					if (cost < dist[i.v]) {
-						dist[i.v] = cost;
-						q.offer(new Edge(i.v,cost));
-					}
-				}
-			}
+			dijkstra(dist);
 			graph.clear();
 			sb.append("#").append(tc).append(" ").append(dist[E]).append("\n");
 
@@ -58,17 +41,40 @@ public class Solution {
 		System.out.println(sb);
 
 	}
-	public static class Edge implements Comparable<Edge>{
-        int v;
-        long w;
- 
-        public Edge(int v, long w){
-            this.v = v;
-            this.w = w;
-        }
-        @Override
-        public int compareTo(Edge o) {    // 가중치를 비교함
-            return Long.compare(w, o.w);
-        }
-    }
+
+	public static class Edge implements Comparable<Edge> {
+		int v;
+		long w;
+
+		public Edge(int v, long w) {
+			this.v = v;
+			this.w = w;
+		}
+
+		public int compareTo(Edge o) {
+			return Long.compare(w, o.w);
+		}
+	}
+
+	public static void dijkstra(Long[] dist) {
+		PriorityQueue<Edge> q = new PriorityQueue<>();
+		q.offer(new Edge(S, 0));
+
+		while (!q.isEmpty()) {
+			Edge now = q.poll();
+			Long w = now.w;
+			int v = now.v;
+			if (dist[v] < w) {
+				continue;
+			}
+			for (Edge i : graph.get(v)) {
+				Long cost = w + i.w;
+
+				if (cost < dist[i.v]) {
+					dist[i.v] = cost;
+					q.offer(new Edge(i.v, cost));
+				}
+			}
+		}
+	}
 }
