@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -77,11 +76,11 @@ public class Main {
 		}
 		
 		if (board[y][x] == 'Z') {
-			if (ey != -1 && ex != -1) {
+			
 
 				eb = board[ey - 1][ex - 1];
 
-			}
+			
 			return;
 		}
 		if (board[y][x] == '.') {// 중간에 길이 끊긴 지점으므로 이곳에서 지워진 영역임.
