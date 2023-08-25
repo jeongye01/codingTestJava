@@ -20,8 +20,8 @@ public class Solution {
 			M = Integer.parseInt(st.nextToken());
 			A = Integer.parseInt(st.nextToken());
             ans=0;
-			arra = new int[M];
-			arrb = new int[M];
+			arra = new int[M+1];
+			arrb = new int[M+1];
 			ap = new int[A][4];
 			board = new int[10][10];
 			ax = ay = 0;
@@ -75,11 +75,13 @@ public class Solution {
 			}
 
 		}
-		if (!aq.isEmpty() && bq.isEmpty()) {
+        boolean aEmpty=aq.isEmpty();
+        boolean bEmpty=bq.isEmpty();
+		if (!aEmpty && bEmpty) {
 			max = aq.poll().c;
-		} else if (aq.isEmpty() && !bq.isEmpty()) {
+		} else if (aEmpty && !bEmpty) {
 			max = bq.poll().c;
-		} else if (!aq.isEmpty() && !bq.isEmpty()) {
+		} else if (!aEmpty && !bEmpty) {
 
 			Charger a = aq.poll();
 			Charger b = bq.poll();
@@ -103,9 +105,6 @@ public class Solution {
 
 		ans += max;
 		// System.out.println(max + " " + t);
-		if (t == M) {
-			return;
-		}
 		ax += dx[arra[t]];
 		ay += dy[arra[t]];
 		bx += dx[arrb[t]];
