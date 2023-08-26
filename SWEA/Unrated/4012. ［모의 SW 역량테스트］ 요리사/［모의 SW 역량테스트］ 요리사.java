@@ -32,7 +32,6 @@ public class Solution {
  
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out)); 
         StringTokenizer st;
         StringBuilder sb=new StringBuilder();
         int T = Integer.parseInt(br.readLine());
@@ -52,10 +51,7 @@ public class Solution {
             sb.append("#").append(tc).append(" ").append(ans).append("\n");
              
         }
-        bw.write(sb.toString()); 
-        bw.flush();  
-        bw.close();   
- 
+        System.out.println(sb);
     }
  
 }
