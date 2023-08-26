@@ -10,9 +10,9 @@ public class Solution {
             int food1 = 0, food2 = 0;
             for (int i = 0; i < N - 1; i++) {
                 for (int j = i + 1; j < N; j++) {
-                    if (classify[i] && classify[j] ) {
+                    if (classify[i] && classify[i] == classify[j] ) {
                         food1 += record[i][j] + record[j][i];
-                    } else if (!classify[i] && !classify[j]) {
+                    } else if (! classify[i] && classify[i] == classify[j]) {
                         food2 += record[i][j] + record[j][i];
                     }
                 }
