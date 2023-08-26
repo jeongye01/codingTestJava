@@ -17,6 +17,7 @@ public class Solution {
                     }
                 }
             }
+            
             ans = Math.min(ans, Math.abs(food1 - food2));
             return;
         }
@@ -32,9 +33,9 @@ public class Solution {
     public static void main(String[] args) throws IOException {
         BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
         BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out)); 
-        StringTokenizer st = new StringTokenizer(br.readLine());
+        StringTokenizer st;
         StringBuilder sb=new StringBuilder();
-        int T = Integer.parseInt(st.nextToken());
+        int T = Integer.parseInt(br.readLine());
         for (int tc = 1; tc <= T; tc++) {
             ans = Integer.MAX_VALUE;
             N = Integer.parseInt(br.readLine());
