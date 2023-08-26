@@ -12,7 +12,6 @@ public class Solution {
 		int T = 10;
 		StringBuilder sb = new StringBuilder();
 		for (int tc = 1; tc <= T; tc++) {
-			ans = 0;
 			br.readLine();
 			for (int i = 0; i < N; i++) {
 				char[] chs = br.readLine().trim().toCharArray();
