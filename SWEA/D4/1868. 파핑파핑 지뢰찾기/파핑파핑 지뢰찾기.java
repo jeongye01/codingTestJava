@@ -2,7 +2,7 @@ import java.util.*;
 import java.io.*;
 
 public class Solution {
-	static int N, ans;
+	static int N, ans, safeCnt;
 	static int[] dx = { 0, -1, 0, 1, 1, -1, 1, -1 };
 	static int[] dy = { -1, 0, 1, 0, 1, 1, -1, -1 };
 	static char board[][];
@@ -15,10 +15,14 @@ public class Solution {
 			N = Integer.parseInt(br.readLine().trim());
 			board = new char[N][N];
 			ans = 0;
+			safeCnt = 0;
 			for (int i = 0; i < N; i++) {
 				char[] chs = br.readLine().trim().toCharArray();
 				for (int j = 0; j < N; j++) {
 					board[i][j] = chs[j];
+					if (chs[j] == '.') {
+						safeCnt++;
+					}
 				}
 			}
 			for (int i = 0; i < N; i++) {
@@ -37,15 +41,7 @@ public class Solution {
 				}
 			}
 
-			for (int i = 0; i < N; i++) {
-				for (int j = 0; j < N; j++) {
-					if (board[i][j] == '1') {
-
-						ans += 1;
-					}
-				}
-			}
-
+			ans = safeCnt+ans;
 			sb.append("#").append(tc).append(" ").append(ans).append("\n");
 
 		}
@@ -73,6 +69,7 @@ public class Solution {
 
 		q.add(new int[] { i, j });
 		board[i][j] = '2';
+		safeCnt--;
 		while (!q.isEmpty()) {
 			int[] now = q.poll();
 
@@ -86,6 +83,7 @@ public class Solution {
 				if (board[ny][nx] == '0') {
 					q.add(new int[] { ny, nx });
 				}
+				safeCnt--;
 				board[ny][nx] = '2';
 
 			}
