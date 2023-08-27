@@ -9,6 +9,7 @@ public class Main {
 	static int board[][];
 	static boolean selected[];
 	static int players[];
+	static List<int[]> copyEnemy = new ArrayList<>();
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -20,6 +21,7 @@ public class Main {
 		board = new int[N][M];
 		selected = new boolean[M];
 		players = new int[3];
+		copyEnemy = new ArrayList<>();
 		enemy = new ArrayList<>();
 		for (int i = 0; i < N; i++) {
 			st = new StringTokenizer(br.readLine().trim());
@@ -27,6 +29,7 @@ public class Main {
 				int input = Integer.parseInt(st.nextToken());
 				if (input == 1) {
 					enemy.add(new int[] { j, i, 1 });
+					copyEnemy.add(new int[] { j, i, 1 });
 				}
 
 			}
@@ -65,15 +68,15 @@ public class Main {
 		PriorityQueue<Enemy> q1 = new PriorityQueue<>();
 		PriorityQueue<Enemy> q2 = new PriorityQueue<>();
 		PriorityQueue<Enemy> q3 = new PriorityQueue<>();
-		List<int[]> copyEnemy=new ArrayList<>() ;
-		for(int i=0;i<enemy.size();i++) {
+
+		for (int i = 0; i < enemy.size(); i++) {
 			int[] pos = enemy.get(i);
-			copyEnemy.add(new int[] {pos[0],pos[1],pos[2]});
+			copyEnemy.set(i, new int[] { pos[0], pos[1], pos[2] });
 		}
 		int deleted = enemy.size();
 		int point = 0;
 		while (deleted > 0) {
-			
+
 			// System.out.println(deleted);
 			for (int i = 0; i < enemy.size(); i++) {
 				int[] pos = copyEnemy.get(i);
@@ -83,7 +86,7 @@ public class Main {
 				}
 				int ex = pos[0], ey = pos[1];
 				int d1 = Math.abs(ex - players[0]) + Math.abs(ey - N);
-				//System.out.println(d1);
+				// System.out.println(d1);
 				if (d1 <= D) {
 					q1.offer(new Enemy(ex, ey, i, d1));
 				}
@@ -107,7 +110,7 @@ public class Main {
 					copyEnemy.set(i, new int[] { -1, -1, 0 });
 					deleted--;
 					point++;
-					//System.out.println("audwnd");
+					// System.out.println("audwnd");
 					continue;
 				}
 				copyEnemy.get(i)[1]++;
@@ -122,7 +125,7 @@ public class Main {
 			q3.clear();
 
 		}
-        //System.out.println(point+"point");
+		// System.out.println(point+"point");
 		ans = Math.max(ans, point);
 
 	}
@@ -136,7 +139,7 @@ public class Main {
 			if (!selected[i]) {
 				selected[i] = true;
 				players[cnt] = i;
-				pick(cnt + 1, i+1);
+				pick(cnt + 1, i + 1);
 				selected[i] = false;
 
 			}
