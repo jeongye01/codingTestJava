@@ -62,7 +62,9 @@ public class Main {
 	}
 
 	private static void play() {
-
+		PriorityQueue<Enemy> q1 = new PriorityQueue<>();
+		PriorityQueue<Enemy> q2 = new PriorityQueue<>();
+		PriorityQueue<Enemy> q3 = new PriorityQueue<>();
 		List<int[]> copyEnemy=new ArrayList<>() ;
 		for(int i=0;i<enemy.size();i++) {
 			int[] pos = enemy.get(i);
@@ -71,9 +73,7 @@ public class Main {
 		int deleted = enemy.size();
 		int point = 0;
 		while (deleted > 0) {
-			PriorityQueue<Enemy> q1 = new PriorityQueue<>();
-			PriorityQueue<Enemy> q2 = new PriorityQueue<>();
-			PriorityQueue<Enemy> q3 = new PriorityQueue<>();
+			
 			// System.out.println(deleted);
 			for (int i = 0; i < enemy.size(); i++) {
 				int[] pos = copyEnemy.get(i);
@@ -117,6 +117,9 @@ public class Main {
 				}
 
 			}
+			q1.clear();
+			q2.clear();
+			q3.clear();
 
 		}
         //System.out.println(point+"point");
