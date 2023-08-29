@@ -1,152 +1,135 @@
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.util.ArrayList;
-import java.util.LinkedList;
-import java.util.Queue;
-import java.util.StringTokenizer;
- 
-class Position {
-    int x;
-    int peopleNum;
- 
-    Position(int x, int peopleNum) {
-        this.x = x;
-        this.peopleNum = peopleNum;
-    }
-}
- 
+
+import java.util.*;
+import java.io.*;
+
 public class Main {
-    static int N;
-    static Position[] positions; // 지역의 번호와 인구수를 담은 객체 배열.
-    static ArrayList<ArrayList<Integer>> list; // 연결리스트
-    static int ans = Integer.MAX_VALUE;
- 
-    public static void main(String[] args) throws NumberFormatException, IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer st;
- 
-        N = Integer.parseInt(br.readLine());
- 
-        positions = new Position[N + 1];
-        st = new StringTokenizer(br.readLine());
-        for (int i = 1; i <= N; i++) {
-            int peopleNum = Integer.parseInt(st.nextToken());
-            positions[i] = new Position(i, peopleNum);
-        }
- 
-        list = new ArrayList<>();
-        for (int i = 0; i <= N; i++) {
-            list.add(new ArrayList<>());
-        }
- 
-        for (int i = 1; i <= N; i++) {
-            st = new StringTokenizer(br.readLine());
-            int n = Integer.parseInt(st.nextToken());
-            for (int j = 0; j < n; j++) {
-                int temp = Integer.parseInt(st.nextToken());
-                list.get(i).add(temp);
-            }
-        }
-        //////////// 입력 끝.
- 
-        ArrayList<Integer> A = new ArrayList<>();
-        for (int i = 1; i <= N / 2; i++) {
-            comb(1, N, i, A); // 조합을 통한 지역 분리.
-        }
- 
-        // ans가 초기값 그대로라면, 게리멘더링에 실패한 것임.
-        if (ans == Integer.MAX_VALUE) {
-            ans = -1;
-        }
- 
-        bw.write(ans + "\n");
-        bw.flush();
-        bw.close();
-        br.close();
-    }
- 
-    // 조합
-    public static void comb(int start, int n, int r, ArrayList<Integer> A) {
-        if (r == 0) {
-            gerrymandering(A);
-            return;
-        }
- 
-        for (int i = start; i <= n; i++) {
-            A.add(i);
-            comb(i + 1, n, r - 1, A);
-            A.remove(A.size() - 1);
-        }
-    }
- 
-    // 할당받은 지역의 인구수의 차이를 계산하는 함수.
-    public static void gerrymandering(ArrayList<Integer> A) {
-        // A 지역구가 잘 연결되어있는지 확인
-        if(!isConnect(positions[A.get(0)].x, A, A.size())) {
-            return;
-        }
- 
-        ArrayList<Integer> B = new ArrayList<>();
-        for (int i = 1; i <= N; i++) {
-            if (A.contains(i)) {
-                continue;
-            }
-            B.add(i);
-        }
-        
-        // B 지역구가 잘 연결되어있는지 확인
-        if(!isConnect(positions[B.get(0)].x, B, B.size())) {
-            return;
-        }
- 
-        int resultA = 0;
-        
-        // A 지역구 인구 계산
-        for (int i = 0; i < A.size(); i++) {
-            resultA += positions[A.get(i)].peopleNum;
-        }
- 
-        int resultB = 0;
-        
-        // B 지역구 인구 계산
-        for (int i = 0; i < B.size(); i++) {
-            resultB += positions[B.get(i)].peopleNum;
-        }
- 
-        int result = Math.abs(resultA - resultB);
-        ans = Math.min(ans, result);
- 
-    }
-    
-    // 선거구가 모두 연결되어있는지 확인.
-    public static boolean isConnect(int num, ArrayList<Integer> arr, int size) {
-        boolean[] visited = new boolean[N + 1];
-        visited[num] = true;
-        Queue<Integer> q = new LinkedList<>();
-        q.offer(num);
- 
-        int count = 1;
-        while (!q.isEmpty()) {
-            int start = q.poll();
- 
-            for (int i : list.get(start)) {
-                // 이미 방문한 적이 없고, arr에 속해야 함.
-                if (!visited[i] && arr.contains(i)) {
-                    visited[i] = true;
-                    count++;
-                    q.offer(i);
-                }
-            }
-        }
- 
-        if (count == size) {
-            return true;
-        }
-        return false;
-    }
- 
+
+	static int N, aSum, bSum, ans;
+	static int selected[], arr[][];
+	static int towns[], visited[];
+
+	public static void main(String[] args) throws IOException {
+		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+		StringTokenizer st;
+		N = Integer.parseInt(br.readLine().trim());
+		towns = new int[N];
+		visited = new int[N];
+		selected = new int[N];
+		arr = new int[N][N];
+		st = new StringTokenizer(br.readLine().trim());
+		for (int i = 0; i < N; i++) {
+			towns[i] = Integer.parseInt(st.nextToken());
+		}
+		for (int i = 0; i < N; i++) {
+			st = new StringTokenizer(br.readLine().trim());
+			int len = Integer.parseInt(st.nextToken());
+			for (int j = 0; j < len; j++) {
+				int tmp = Integer.parseInt(st.nextToken()) - 1;
+				arr[i][tmp] = 1;
+				arr[tmp][i] = 1;
+
+			}
+		}
+		ans = Integer.MAX_VALUE;
+		// System.out.println(canGo(0, 3));
+		for (int i = 1; i <= N / 2; i++) {
+			pick(0, 0, i);
+			if (ans == 0) {
+				break;
+			}
+		}
+		System.out.println(ans == Integer.MAX_VALUE ? -1 : ans);
+
+	}
+
+	private static boolean canGo(int st, int ed) {
+		if (arr[st][ed] == 1) {
+			//System.out.println(st+" "+ed);
+			return true;
+		}
+		for (int c = 0; c < N; c++) {
+			if (c == st || visited[c] == 1 || (selected[st] != selected[c]) || arr[st][c]==0) {
+				continue;
+			}
+			visited[c]=1;
+			if (canGo(c, ed)) {
+				return true;
+			}
+
+		}
+		return false;
+	}
+
+	private static boolean isAble() {
+		aSum = 0;
+		bSum = 0;
+		List<Integer> a = new ArrayList<>();
+		List<Integer> b = new ArrayList<>();
+		for (int i = 0; i < N; i++) {
+			if (selected[i] == 0) {
+				aSum += towns[i];
+				a.add(i);
+			} else {
+				bSum += towns[i];
+				b.add(i);
+			}
+		}
+		for (int i = 0; i < a.size() - 1; i++) {
+			for (int j = i + 1; j < a.size(); j++) {
+				Arrays.fill(visited, 0);
+			
+				if (!(canGo(a.get(i), a.get(j)))) {
+					return false;
+				}
+			}
+
+		}
+		for (int i = 0; i < b.size() - 1; i++) {
+			for (int j = i + 1; j < b.size(); j++) {
+				Arrays.fill(visited, 0);
+			
+				if (!(canGo(b.get(i), b.get(j)))) {
+					return false;
+				}
+			}
+
+		}
+		return true;
+
+	}
+
+	private static void pick(int idx, int cnt, int toPickCnt) {
+		if (cnt == toPickCnt) {
+			if (isAble()) {
+				Arrays.fill(visited, 0);
+				
+			   
+				ans = Math.min(ans, Math.abs(aSum - bSum));
+			}
+			return;
+		}
+		for (int i = idx; i < N; i++) {
+			if (selected[i] == 0) {
+				selected[i] = 1;
+				pick(i + 1, cnt + 1, toPickCnt);
+				selected[i] = 0;
+
+			}
+		}
+
+	}
+
 }
+/*
+
+
+6
+2 2 2 2 2 2
+1 3
+1 4
+1 1
+1 2
+1 6
+1 5
+
+*/
