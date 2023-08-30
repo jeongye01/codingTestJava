@@ -1,3 +1,4 @@
+https://st-lab.tistory.com/194
 # [Silver V] 다리 놓기 - 1010 
 
 [문제 링크](https://www.acmicpc.net/problem/1010) 
