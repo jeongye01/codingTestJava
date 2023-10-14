@@ -14,8 +14,8 @@ public class Main {
 			// System.out.println(stack.toString());
 			if (s.charAt(i) == 'P') {
 				stack.add('P');
-			} else if (s.charAt(i) == 'A' && i + 1 < s.length() && s.charAt(i + 1) == 'P') {
-				if (stack.size() >= 2) {
+			} else if (s.charAt(i) == 'A'  ) {
+				if (i + 1 < s.length() && s.charAt(i + 1) == 'P' && stack.size() >= 2) {
 					stack.pop();
 					stack.pop();
 
@@ -23,10 +23,7 @@ public class Main {
 					check = false;
 					break;
 				}
-			} else {
-				check = false;
-				break;
-			}
+			} 
 		}
 		// System.out.println(stack.toString());
 		if (check && stack.size() == 1) {
