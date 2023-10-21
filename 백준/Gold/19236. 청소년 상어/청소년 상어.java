@@ -1,5 +1,4 @@
 
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -45,12 +44,11 @@ public class Main {
 
 			}
 		}
-		// map[1][1]=null;
+	
 		ans = 0;
-		List<Integer> tmp = new ArrayList<>();
-		tmp.add(n);
+		
 
-		bt(n, 0, 0, d, map, tmp);
+		bt(n, 0, 0, d, map);
 		System.out.println(ans);
 
 	}
@@ -90,25 +88,19 @@ public class Main {
 		}
 	}
 
-	public static void bt(int sum, int x, int y, int d, Fish[][] map, List<Integer> eated) {
+	public static void bt(int sum, int x, int y, int d, Fish[][] map) {
 
 		int sx = x;
 		int sy = y;
 		move(x, y, map);
 
-		// map[1][1]=null;
+		
 		while (true) {
 			sx += dx[d];
 			sy += dy[d];
 			if (sx < 0 || sx >= N || sy < 0 || sy >= N) {
 
-				//System.out.println("다 먹었당 " + " " + eated.toString() + " " + sy + " " + sx + " " + sum + " " + d);
-//				for (int i = 0; i < N; i++) {
-//					for (int j = 0; j < N; j++) {
-//						System.out.print((map[i][j] != null ? map[i][j].n : 0) + " ");
-//					}
-//					System.out.println();
-//				}
+	
 
 				ans = Math.max(ans, sum);
 				return;
@@ -127,16 +119,12 @@ public class Main {
 			}
 
 			nmap[sy][sx] = null;
-			// nmap = map.clone();
-			// System.out.println(map == nmap);
+		
 
-			List<Integer> ne = new ArrayList<>();
-			for (int i = 0; i < eated.size(); i++) {
-				ne.add(eated.get(i));
-			}
-			ne.add(f.n);
-			//System.out.println(f.d + " " + f.n);
-			bt(sum + f.n, sx, sy, f.d, nmap, ne);
+			
+			
+		
+			bt(sum + f.n, sx, sy, f.d, nmap);
 
 		}
 
