@@ -31,14 +31,6 @@ public class Main {
 
 	public static void melt() {
 		while (true) {
-			int pieces = pieces();
-			if (pieces == 0) {
-				ans = 0;
-				return;
-			} else if (pieces >= 2) {
-				return;
-			}
-			ans++;
 			int[][] boardCopy = new int[N][M];
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < M; j++) {
@@ -46,6 +38,21 @@ public class Main {
 
 				}
 			}
+			int pieces = pieces(boardCopy);
+			if (pieces == 0) {
+				ans = 0;
+				return;
+			} else if (pieces >= 2) {
+				return;
+			}
+			for (int i = 0; i < N; i++) {
+				for (int j = 0; j < M; j++) {
+					boardCopy[i][j] = board[i][j];
+
+				}
+			}
+			ans++;
+
 			for (int i = 0; i < N; i++) {
 				for (int j = 0; j < M; j++) {
 					for (int d = 0; d < 4; d++) {
@@ -58,7 +65,7 @@ public class Main {
 
 				}
 			}
-		
+
 		}
 
 	}
@@ -80,20 +87,13 @@ public class Main {
 				q.add(new int[] { ny, nx });
 
 			}
-			
+
 		}
 
 	}
 
-	public static int pieces() {
+	public static int pieces(int[][] boardCopy) {
 		int cnt = 0;
-		int[][] boardCopy = new int[N][M];
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < M; j++) {
-				boardCopy[i][j] = board[i][j];
-
-			}
-		}
 		for (int i = 0; i < N; i++) {
 			for (int j = 0; j < M; j++) {
 				if (boardCopy[i][j] > 0) {
