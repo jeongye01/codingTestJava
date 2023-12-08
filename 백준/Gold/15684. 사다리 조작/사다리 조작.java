@@ -12,6 +12,7 @@ public class Main {
 	static boolean[][] board;
 
 	static int ans;
+	static int rr;
 
 	public static void main(String[] args) throws IOException {
 		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -32,6 +33,16 @@ public class Main {
 		add(0, 0, 0);
 		System.out.println(ans >= 4 ? -1 : ans);
 
+	}
+
+	public static void why(int r, int c) {
+		for (int i = r; i < 3; i++) {
+			for (int j = c; j < 3; j++) {
+				System.out.print(i + " " + j + "|");
+				why(r + 1, c + 1);
+			}
+			System.out.println();
+		}
 	}
 
 	public static int result(int r, int c) {
@@ -70,16 +81,12 @@ public class Main {
 		}
 		for (int i = sr; i < H; i++) {
 			for (int j = 0; j < N - 1; j++) {
-				if (board[i][j] || (j - 1 >= 0 && board[i][j - 1]) || (j + 1 < N-1  && board[i][j + 1]))
+
+				if (board[i][j] || (j - 1 >= 0 && board[i][j - 1]) || (j + 1 < N - 1 && board[i][j + 1]))
 					continue;
 
 				board[i][j] = true;
-				if (j  == N - 2) {
-					add(cnt + 1, i + 1, 0);
-				} else {
-					add(cnt + 1, i, j + 1);
-				}
-
+				add(cnt + 1, i, j);
 				board[i][j] = false;
 			}
 		}
