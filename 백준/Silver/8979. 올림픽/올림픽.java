@@ -59,7 +59,7 @@ public class Main {
 			}
 		}
 		for (int i = 0; i < N; i++) {
-			if (list[i].n != K && c.compareTo(list[i]) > 0) {
+			if (list[i].n != K && c.compareTo(list[i]) < 0) {
 				ans++;
 			}
 		}
