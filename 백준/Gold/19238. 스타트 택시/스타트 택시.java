@@ -70,14 +70,10 @@ public class Main {
 				for (int j = 0; j < N; j++) {
 					if (board[i][j] >= 2) {
 						int dist = bfs(i, j);
-						//System.out.println(dist+" "+board[i][j]+" "+y+" "+x);
+						// System.out.println(dist+" "+board[i][j]+" "+y+" "+x);
 						if (shortest > dist) {
-							int tcost = costbfs(i, j, board[i][j]);
-							if (tcost == Integer.MAX_VALUE)
-								continue;
 							shortestNum = board[i][j];
 							shortest = dist;
-							cost = tcost;
 							sy = i;
 							sx = j;
 						}
@@ -85,8 +81,9 @@ public class Main {
 				}
 			}
 			if (shortestNum != -1) {
+				cost = costbfs(sy, sx, shortestNum);
 				if (fuel - shortest <= 0 || fuel - shortest - cost < 0) {
-					//System.out.println(1);
+					// System.out.println(1);
 					fuel = -1;
 					return;
 				}
@@ -96,10 +93,10 @@ public class Main {
 				y = m.ey;
 				x = m.ex;
 				map.remove(shortestNum);
-				//System.out.println(shortestNum+" 지움 ");
+				// System.out.println(shortestNum+" 지움 ");
 				board[sy][sx] = 0;
 			} else {
-				//System.out.println(2);
+				// System.out.println(2);
 				fuel = -1;
 				return;
 			}
@@ -117,7 +114,7 @@ public class Main {
 		q.add(new int[] { sy, sx, 0 });
 		visited[sy][sx] = true;
 		Man m = map.get(n);
-		
+
 		while (!q.isEmpty()) {
 			int[] now = q.poll();
 			int distance = now[2];
@@ -146,7 +143,7 @@ public class Main {
 		while (!q.isEmpty()) {
 			int[] now = q.poll();
 			int distance = now[2];
-			//System.out.println(distance);
+			// System.out.println(distance);
 			if (now[0] == sy && now[1] == sx) {
 				return distance;
 			}
