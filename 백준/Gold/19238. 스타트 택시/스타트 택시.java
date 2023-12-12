@@ -1,4 +1,3 @@
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -70,7 +69,7 @@ public class Main {
 				for (int j = 0; j < N; j++) {
 					if (board[i][j] >= 2) {
 						int dist = bfs(i, j);
-						// System.out.println(dist+" "+board[i][j]+" "+y+" "+x);
+
 						if (shortest > dist) {
 							shortestNum = board[i][j];
 							shortest = dist;
@@ -81,22 +80,22 @@ public class Main {
 				}
 			}
 			if (shortestNum != -1) {
-				cost = costbfs(sy, sx, shortestNum);
+				Man m = map.get(shortestNum);
+				cost = costbfs(sy, sx, m.ey, m.ex);
 				if (fuel - shortest <= 0 || fuel - shortest - cost < 0) {
-					// System.out.println(1);
+
 					fuel = -1;
 					return;
 				}
 				fuel = fuel - shortest + cost;
 
-				Man m = map.get(shortestNum);
 				y = m.ey;
 				x = m.ex;
 				map.remove(shortestNum);
-				// System.out.println(shortestNum+" 지움 ");
+
 				board[sy][sx] = 0;
 			} else {
-				// System.out.println(2);
+
 				fuel = -1;
 				return;
 			}
@@ -107,18 +106,17 @@ public class Main {
 		}
 	}
 
-	public static int costbfs(int sy, int sx, int n) {
+	public static int costbfs(int sy, int sx, int ey, int ex) {
 
 		boolean visited[][] = new boolean[N][N];
 		Queue<int[]> q = new LinkedList<>();
 		q.add(new int[] { sy, sx, 0 });
 		visited[sy][sx] = true;
-		Man m = map.get(n);
 
 		while (!q.isEmpty()) {
 			int[] now = q.poll();
 			int distance = now[2];
-			if (now[0] == m.ey && now[1] == m.ex) {
+			if (now[0] == ey && now[1] == ex) {
 				return distance;
 			}
 			for (int d = 0; d < 4; d++) {
@@ -143,7 +141,7 @@ public class Main {
 		while (!q.isEmpty()) {
 			int[] now = q.poll();
 			int distance = now[2];
-			// System.out.println(distance);
+
 			if (now[0] == sy && now[1] == sx) {
 				return distance;
 			}
