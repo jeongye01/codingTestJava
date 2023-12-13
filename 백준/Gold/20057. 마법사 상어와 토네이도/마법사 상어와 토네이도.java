@@ -1,97 +1,263 @@
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
 import java.util.*;
 
-// ans : 토네이도가 소멸되었을 때, 격자의 밖으로 나간 모래의 양
+class Point {
+    int y, x;
+
+    Point(int y, int x) {
+        this.y = y;
+        this.x = x;
+    }
+}
+
 public class Main {
 
-	static int N;
-	static int[][] board;
-	static int ans;
-	public static int[][][] shape = {
-			{ { 0, 0, 2, 0, 0 }, { 0, 10, 7, 1, 0 }, { 5, -1, 0, 0, 0 }, { 0, 10, 7, 1, 0 }, { 0, 0, 2, 0, 0 } },
-			{ { 0, 0, 0, 0, 0 }, { 0, 1, 0, 1, 0 }, { 2, 7, 0, 7, 2 }, { 0, 10, -1, 10, 0 }, { 0, 0, 5, 0, 0 } },
-			{ { 0, 0, 2, 0, 0 }, { 0, 1, 7, 10, 0 }, { 0, 0, 0, -1, 5 }, { 0, 1, 7, 10, 0 }, { 0, 0, 2, 0, 0 } },
-			{ { 0, 0, 5, 0, 0 }, { 0, 10, -1, 10, 0 }, { 2, 7, 0, 7, 2 }, { 0, 1, 0, 1, 0 }, { 0, 0, 0, 0, 0 } } };
+    // 좌하우상
+    public static int[] dy = new int[]{0, 1, 0, -1};
+    public static int[] dx = new int[]{-1, 0, 1, 0};
 
-	public static void main(String[] args) throws IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer st = new StringTokenizer(br.readLine().trim());
-		StringBuilder sb = new StringBuilder();
-		N = Integer.parseInt(st.nextToken());
-		board = new int[N][N];
-		for (int i = 0; i < N; i++) {
-			st = new StringTokenizer(br.readLine().trim());
-			for (int j = 0; j < N; j++) {
-				board[i][j] = Integer.parseInt(st.nextToken());
-			}
+    public static int answer = 0;
 
-		}
-		solve();
-		System.out.println(ans);
+    public static void main(String[] args) throws IOException {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        StringTokenizer st;
 
-	}
+        // 17:52
 
-	public static void solve() {
-		int y = N / 2, x = N / 2;
-		int m = 1;
-		int d = 0;
-		int dx[] = { -1, 0, 1, 0 };
-		int dy[] = { 0, 1, 0, -1 };
+        int N;
+        int[][] arr;
 
-		// TODO: 이동 시키기
-		while (true) {
+        N = Integer.parseInt(br.readLine());
+        arr = new int[N][N];
 
-			for (int i = 0; i < m; i++) {
-				x += dx[d];
-				y += dy[d];
-				if (x < 0 || y < 0)
-					return;
-				// 모래 이동시키기
-				if (board[y][x] != 0) {
-					move(y, x, d, board[y][x]);
-				}
+        for (int i = 0; i < N; i++) {
+            st = new StringTokenizer(br.readLine());
+            for (int j = 0; j < N; j++) {
+                arr[i][j] = Integer.parseInt(st.nextToken());
+            }
+        }
 
-			}
-			d = (d + 1) % 4;
-			if (d == 2 || d == 0)
-				m += 1;
+        /////////////////////////////////////////////////////////////////////////////
 
-		}
+        // 좌하1번 우상2번 좌하3번 우상4번 좌하5번 우상6번 좌6번
 
-	}
+        Point cur = new Point(N / 2, N / 2);
 
-	public static void move(int y, int x, int d, int sand) {
-		board[y][x] = 0;
-		int a = sand;
-		int ax = -1;
-		int ay = -1;
-		for (int i = -2; i <= 2; i++) {
-			for (int j = -2; j <= 2; j++) {
-				int ny = y + i;
-				int nx = x + j;
-				int amount = (int) (sand * shape[d][i + 2][j + 2] * 0.01);
-				if (ny < 0 || ny >= N || nx < 0 || nx >= N) {
-					ans += amount;
-					a -= amount;
-				} else if (shape[d][i + 2][j + 2] > 0) {
-					board[ny][nx] += amount;
-					a -= amount;
-				} else if (shape[d][i + 2][j + 2] == -1) {
-					ax = nx;
-					ay = ny;
-				}
+        for (int depth = 1; depth < N; depth++) {
+            if (depth % 2 == 1) {
+                for (int i = 0; i < depth; i++)
+                    go(arr, cur, 0);
+                for (int i = 0; i < depth; i++)
+                    go(arr, cur, 1);
+            } else {
+                for (int i = 0; i < depth; i++)
+                    go(arr, cur, 2);
+                for (int i = 0; i < depth; i++)
+                    go(arr, cur, 3);
+            }
+        }
+        for (int i = 0; i < N - 1; i++)
+            go(arr, cur, 0);
 
-			}
+        System.out.println(answer);
 
-		}
-		if (ax < 0) {
-			ans += a;
-		} else {
-			board[ay][ax] += a;
-		}
+    }
 
-	}
+    public static void go(int[][] arr, Point cur, int direction) {
 
+        // 좌하우상
+        int weight = arr[cur.y + dy[direction]][cur.x + dx[direction]];
+        int newY;
+        int newX;
+
+        //
+        newY = cur.y + dy[direction] * 3;
+        newX = cur.x + dx[direction] * 3;
+        if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+            answer += weight * 5 / 100;
+        } else {
+            arr[newY][newX] += weight * 5 / 100;
+        }
+
+        // 방향이 0123 좌하우상
+        // 좌우면
+        if (direction % 2 == 0) {
+
+            newY = cur.y + dy[direction] * 2;
+            newX = cur.x + dx[direction] * 2;
+
+            newY = cur.y + dy[(direction + 1) %4];
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 10 / 100;
+            } else {
+                arr[newY][newX] += weight * 10 / 100;
+            }
+
+            newY = cur.y + dy[(direction + 3) % 4];
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 10 / 100;
+            } else {
+                arr[newY][newX] += weight * 10 / 100;
+            }
+        } else {
+            newY = cur.y + dy[direction] * 2;
+            newX = cur.x + dx[direction] * 2;
+
+            newX = cur.x + dx[(direction + 1) % 4];
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 10 / 100;
+            } else {
+                arr[newY][newX] += weight * 10 / 100;
+            }
+
+            newX = cur.x + dx[(direction + 3) % 4];
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 10 / 100;
+            } else {
+                arr[newY][newX] += weight * 10 / 100;
+            }
+        }
+
+        // 방향이 0123 좌하우상
+        // 좌우면
+        if (direction % 2 == 0) {
+
+            newY = cur.y + dy[direction] * 1;
+            newX = cur.x + dx[direction] * 1;
+
+            newY = cur.y + dy[(direction + 1) % 4] * 2;
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 2 / 100;
+            } else {
+                arr[newY][newX] += weight * 2 / 100;
+            }
+
+            newY = cur.y + dy[(direction + 3) % 4] * 2;
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 2 / 100;
+            } else {
+                arr[newY][newX] += weight * 2 / 100;
+            }
+
+            newY = cur.y + dy[(direction + 1) % 4] * 1;
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 7 / 100;
+            } else {
+                arr[newY][newX] += weight * 7 / 100;
+            }
+
+            newY = cur.y + dy[(direction + 3) % 4] * 1;
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 7 / 100;
+            } else {
+                arr[newY][newX] += weight * 7 / 100;
+            }
+
+        } else {
+            newY = cur.y + dy[direction] * 1;
+            newX = cur.x + dx[direction] * 1;
+
+            newX = cur.x + dx[(direction + 1) % 4] * 2;
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 2 / 100;
+            } else {
+                arr[newY][newX] += weight * 2 / 100;
+            }
+
+            newX = cur.x + dx[(direction + 3) % 4] * 2;
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 2 / 100;
+            } else {
+                arr[newY][newX] += weight * 2 / 100;
+            }
+
+            newX = cur.x + dx[(direction + 1) % 4] * 1;
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 7 / 100;
+            } else {
+                arr[newY][newX] += weight * 7 / 100;
+            }
+
+            newX = cur.x + dx[(direction + 3) % 4] * 1;
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 7 / 100;
+            } else {
+                arr[newY][newX] += weight * 7 / 100;
+            }
+        }
+
+        // 방향이 0123 좌하우상
+        // 좌우면
+        if (direction % 2 == 0) {
+
+            newY = cur.y;
+            newX = cur.x;
+
+            newY = cur.y + dy[(direction + 1) % 4];
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 1 / 100;
+            } else {
+                arr[newY][newX] += weight * 1 / 100;
+            }
+
+            newY = cur.y + dy[(direction + 3) % 4];
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 1 / 100;
+            } else {
+                arr[newY][newX] += weight * 1 / 100;
+            }
+        } else {
+            newY = cur.y;
+            newX = cur.x;
+
+            newX = cur.x + dx[(direction + 1) % 4];
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 1 / 100;
+            } else {
+                arr[newY][newX] += weight * 1 / 100;
+            }
+
+            newX = cur.x + dx[(direction + 3) % 4];
+            if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+                answer += weight * 1 / 100;
+            } else {
+                arr[newY][newX] += weight * 1 / 100;
+            }
+        }
+
+        newY = cur.y + dy[direction];
+        newX = cur.x + dx[direction];
+        arr[newY][newX] = 0;
+
+        newY = cur.y + dy[direction] * 2;
+        newX = cur.x + dx[direction] * 2;
+
+        if (newY < 0 || newY >= arr.length || newX < 0 || newX >= arr[0].length) {
+            answer = answer + weight
+                    - weight * 5 / 100
+                    - weight * 10 / 100
+                    - weight * 10 / 100
+                    - weight * 2 / 100
+                    - weight * 2 / 100
+                    - weight * 7 / 100
+                    - weight * 7 / 100
+                    - weight * 1 / 100
+                    - weight * 1 / 100;
+        } else {
+            arr[newY][newX] = arr[newY][newX] + weight
+                    - weight * 5 / 100
+                    - weight * 10 / 100
+                    - weight * 10 / 100
+                    - weight * 2 / 100
+                    - weight * 2 / 100
+                    - weight * 7 / 100
+                    - weight * 7 / 100
+                    - weight * 1 / 100
+                    - weight * 1 / 100;
+        }
+
+        cur.y = cur.y + dy[direction];
+        cur.x = cur.x + dx[direction];
+    }
 }
