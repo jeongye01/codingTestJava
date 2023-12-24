@@ -100,7 +100,7 @@ public class Main {
 				if (board[ny][nx] != 0) {
 					ans = Math.min(ans, dis);
 
-					continue;
+					return;
 				}
 
 				q.add(new int[] { ny, nx, dis + 1 });
