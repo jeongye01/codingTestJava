@@ -1,6 +1,6 @@
 import java.io.*;
 import java.util.*;
-
+// 60분 소요 
 public class Main {
 	static int N;
 	static int[] arr;
