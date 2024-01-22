@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.*;
+//풀이시간 50분 
 public class Main{
  static int max=2;
 
