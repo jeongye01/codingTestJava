@@ -22,7 +22,7 @@ public class Main{
 
 		   }
 	   }
-	   for(int h=0;h<=100;h++){
+	   for(int h=0;h<=max;h++){
 		   solve(h);
 	   }
 	   System.out.println(ans);
