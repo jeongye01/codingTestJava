@@ -12,7 +12,7 @@ public class Main {
 		int M = Integer.parseInt(st.nextToken());
 		int[] arr1 = new int[N];
 		int[] arr2 = new int[M];
-		int[] newArr = new int[N + M];
+
 		st = new StringTokenizer(br.readLine().trim());
 		for (int i = 0; i < N; i++) {
 			arr1[i] = Integer.parseInt(st.nextToken());
@@ -25,25 +25,23 @@ public class Main {
 		int p2 = 0;
 		for (int i = 0; i < N + M; i++) {
 			if (p1 >= N) {
-				 newArr[i] = arr2[p2];
-			     p2++;
+				sb.append(arr2[p2]).append(' ');
+				p2++;
 				continue;
-			}else if(p2>=M) {
-				newArr[i] = arr1[p1];
+			} else if (p2 >= M) {
+				sb.append(arr1[p1]).append(' ');
 				p1++;
 				continue;
 			}
 			if (arr1[p1] < arr2[p2]) {
-				newArr[i] = arr1[p1];
+				sb.append(arr1[p1]).append(' ');
 				p1++;
 			} else {
-                newArr[i] = arr2[p2];
+				sb.append(arr2[p2]).append(' ');
 				p2++;
 			}
+			
 
-		}
-		for (Integer n : newArr) {
-			sb.append(n).append(' ');
 		}
 
 		System.out.println(sb);
