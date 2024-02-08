@@ -10,7 +10,8 @@ public class Main {
 		int N = Integer.parseInt(st.nextToken());
 		int M = Integer.parseInt(st.nextToken());
         Set<Integer> set = new HashSet<>();
-		int ans = 0;
+		int trash = 0;
+		int b=0;
 		st = new StringTokenizer(br.readLine().trim());
 		for(int i=0;i<N;i++) {
 			set.add(Integer.parseInt(st.nextToken()));
@@ -19,15 +20,15 @@ public class Main {
 		for(int i=0;i<M;i++) {
 			Integer n = Integer.parseInt(st.nextToken());
 			if(set.contains(n)) {
-				set.remove(n);
+				trash++;
 			}else {
-				set.add(n);
+				b++;
 			}
 			
 			
 		}
 		
-		System.out.println(set.size());
+		System.out.println(set.size()+b-trash);
 
 	}
 
