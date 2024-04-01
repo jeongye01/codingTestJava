@@ -1,3 +1,3 @@
--- 코드를 입력하세요
+-- v
 SELECT count(*) as count
 from animal_ins;
