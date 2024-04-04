@@ -1,3 +1,4 @@
--- 코드를 입력하세요
-SELECT animal_id,name from animal_ins
-order by animal_id
+-- v(2024.04.04)
+select animal_id,name 
+from animal_ins
+order by animal_id;
