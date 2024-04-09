@@ -1,2 +1,3 @@
--- 코드를 입력하세요
-SELECT max(price) as MAX_PRICE from product;
+-- v(2024.04.09)
+select max(price) as MAX_PRICE
+from product;
