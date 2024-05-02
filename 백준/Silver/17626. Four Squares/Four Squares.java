@@ -15,7 +15,7 @@ public class Main {
  
         int min = 0;
         for (int i = 2; i <= N; i++) {
-            min = Integer.MAX_VALUE;
+            min = 4;
             
             // i에서 i보다 작은 제곱수에서 뺀 dp[i - j * j] 중
             // 최소를 택한다.
