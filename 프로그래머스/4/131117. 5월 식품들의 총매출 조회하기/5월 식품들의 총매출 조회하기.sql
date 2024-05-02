@@ -1,4 +1,4 @@
--- 2024.04.30
+-- 2024.05.02
 SELECT fp.product_id,fp.product_name,sum(fp.price*fo.amount) as total_sales
 from food_product fp 
 inner join food_order fo
