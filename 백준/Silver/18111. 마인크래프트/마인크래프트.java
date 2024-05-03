@@ -20,13 +20,15 @@ public class Main {
         M = Integer.parseInt(st.nextToken());
         B = Long.parseLong(st.nextToken());
         board = new int[N][M];
+        int maxb=0;
         for(int i=0;i<N;i++){
             st = new StringTokenizer(br.readLine().trim());
             for(int j=0;j<M;j++){
                board[i][j] = Integer.parseInt(st.nextToken());
+               if(maxb<board[i][j])maxb=board[i][j];
             }
         }
-        for(int h=0;h<=256;h++){
+        for(int h=0;h<=maxb;h++){
             int lack=0;
             int over=0;
             int time=0;
