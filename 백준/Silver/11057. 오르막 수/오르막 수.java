@@ -17,7 +17,7 @@ public class Main {
 
                 preTotal += dp[i-1][j]%10007;
             }
-            dp[i][0] = preTotal;
+            dp[i][0] = preTotal%10007;
             int acc=0;
             for(int j=1;j<=9;j++){
                 acc+=(dp[i-1][j-1])%10007;
