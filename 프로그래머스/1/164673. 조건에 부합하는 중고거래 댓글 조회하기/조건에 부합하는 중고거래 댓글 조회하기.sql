@@ -1,7 +1,5 @@
--- 코드를 입력하세요
-SELECT b.TITLE, b.BOARD_ID,r.REPLY_ID,r.WRITER_ID,r.CONTENTS, DATE_FORMAT(r.CREATED_DATE , '%Y-%m-%d') as CREATED_DATE
-from USED_GOODS_BOARD as b  join USED_GOODS_REPLY as r on b.board_id = r.board_id 
-where DATE_FORMAT(b.created_date, '%Y-%m') = '2022-10'
-ORDER BY 
-    r.created_date ASC,
-    b.title ASC;
+-- v(2024.05.24)
+select B.TITLE,B.BOARD_ID,R.REPLY_ID,R.WRITER_ID,R.CONTENTS,date_format(R.CREATED_DATE,'%Y-%m-%d')
+from USED_GOODS_BOARD B join USED_GOODS_REPLY R on B.BOARD_ID = R.BOARD_ID
+where B.CREATED_DATE between '2022-10-01' and '2022-10-31'
+order by R.CREATED_DATE,B.TITLE;
