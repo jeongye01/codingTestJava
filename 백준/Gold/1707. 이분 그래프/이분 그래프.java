@@ -50,7 +50,7 @@ public class Main {
                 int now = q.poll();
                 for (int node : graph[now]) {
                     if (group[node] == 0) {
-                        group[node] = group[now] == 1 ? 2 : 1;
+                        group[node] = group[now] *-1;
                         q.add(node);
                     } else if (group[node] == group[now]) {
                         return false;
