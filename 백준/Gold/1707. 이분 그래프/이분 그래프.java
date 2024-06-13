@@ -1,69 +1,67 @@
-import java.io.*;
 import java.util.*;
+import java.io.*;
 
 public class Main {
-	static int v, e;
-	static ArrayList<Integer>[] al;
-	static int visit[];
 
-	public static void main(String[] args) throws Exception {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		StringTokenizer stz = new StringTokenizer(br.readLine());
-		int t = Integer.parseInt(stz.nextToken());
+    static int V, E;
+    static ArrayList<Integer>[] graph;
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringTokenizer st;
+        StringBuilder sb = new StringBuilder();
+        int T = Integer.parseInt(br.readLine().trim());
+        for (int t = 1; t <= T; t++) {
+            st = new StringTokenizer(br.readLine().trim());
+            V = Integer.parseInt(st.nextToken());
+            E = Integer.parseInt(st.nextToken());
+            graph = new ArrayList[V];
+            for (int i = 0; i < V; i++) {
+                graph[i] = new ArrayList<>();
+            }
+            for (int i = 0; i < E; i++) {
+                st = new StringTokenizer(br.readLine().trim());
+                int a = Integer.parseInt(st.nextToken()) - 1;
+                int b = Integer.parseInt(st.nextToken()) - 1;
+                graph[a].add(b);
+                graph[b].add(a);
 
-		for(int tc = 0; tc < t; tc++) {
-			stz = new StringTokenizer(br.readLine());
-			v = Integer.parseInt(stz.nextToken());
-			e = Integer.parseInt(stz.nextToken());
-			visit = new int[v+1];
-			al = new ArrayList[v+1];
 
-			for(int i = 0; i <= v; i++)
-				al[i] = new ArrayList<Integer>();
+            }
 
-			for(int i = 0; i < e; i++) {
-				stz = new StringTokenizer(br.readLine());
-				int p1 = Integer.parseInt(stz.nextToken());
-				int p2 = Integer.parseInt(stz.nextToken());
 
-				al[p1].add(p2);
-				al[p2].add(p1);
-			}
-			grouping();
-		}
-	}
+            sb.append(bfs() ? "YES" : "NO").append('\n');
 
-	public static void grouping() {
-		Queue<Integer> q = new LinkedList<Integer>();
+        }
+        System.out.println(sb);
 
-		for(int i = 1; i <= v; i++) {
-			if(visit[i] == 0) {
-				q.add(i);
-				visit[i] = 1;
-			}
+    }
 
-			while(!q.isEmpty()) {
-				int now = q.poll();
+    private static boolean bfs() {
+        Queue<Integer> q = new LinkedList<>();
 
-				for(int j = 0; j < al[now].size(); j++) {
-					if(visit[al[now].get(j)] == 0) {
-						q.add(al[now].get(j));
-					}
-					
-					if(visit[al[now].get(j)] == visit[now]) {
-						System.out.println("NO");
-						return;
-					}
+        int[] group = new int[V];
 
-					if(visit[now] == 1 && visit[al[now].get(j)] == 0)
-						visit[al[now].get(j)] = 2;
-					else if(visit[now] == 2 && visit[al[now].get(j)] == 0)
-						visit[al[now].get(j)] = 1;
-				}
-			}
-		}
+        for(int i = 0; i < V; i++) {
+            if(group[i]==0){
+                q.add(i);
+                group[i] = 1;
+            }
+            while (!q.isEmpty()) {
+                int now = q.poll();
+                for (int node : graph[now]) {
+                    if (group[node] == 0) {
+                        group[node] = group[now] == 1 ? 2 : 1;
+                        q.add(node);
+                    } else if (group[node] == group[now]) {
+                        return false;
+                    }
+                }
+            }
+        }
+        return true;
 
-		System.out.println("YES");
-	}
-
+    }
 }
+
+
+
