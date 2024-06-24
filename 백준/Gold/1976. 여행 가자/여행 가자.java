@@ -44,10 +44,10 @@ public class Main {
          return parent[x]=find(parent[x]);
     }
     private static void union(int a,int b) {
-        a = find(a);
-        b = find(b);
-        if(a<b)parent[b]=a;
-        else if(a>b)parent[a]=b;
+        int fa = find(a);
+        int fb = find(b);
+        if(fa<fb)parent[fb]=fa;
+        else if(fa>fb)parent[fa]=fb;
     }
 
 
