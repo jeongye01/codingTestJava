@@ -1,40 +1,41 @@
 import java.io.*;
-import java.util.*;
+
 
 public class Main {
-	static boolean board[][];
+    static int N;
+    static boolean[][] stars;
 
-	public static void main(String[] args) throws NumberFormatException, IOException {
-		BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-		BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-		int N = Integer.parseInt(br.readLine().trim());
-		board = new boolean[N][N];
-		printStar(0, 0, N);
-		for (int i = 0; i < N; i++) {
-			for (int j = 0; j < N; j++) {
-				bw.write(board[i][j] ? '*' : ' ');
-			}
-			bw.write("\n");
+    public static void main(String[] args) throws Exception {
+        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+        StringBuilder sb = new StringBuilder();
+        N = Integer.parseInt(br.readLine().trim());
+        stars = new boolean[N*3+1][N*3+1];
+        draw(1,1,N,false);
+        for(int i=1;i<=N;i++){
+            for(int j=1;j<=N;j++){
+                if(stars[i][j])sb.append('*');
+                else sb.append(' ');
+            }
+            sb.append('\n');
+        }
+        System.out.println(sb);
 
-		}
-		bw.flush();
-	}
-
-	public static void printStar(int x, int y, int k) {
-		if (k == 0) {
-			board[y][x] = true;
-			return;
-		}
-		for (int i = 0; i < 3; i++) {
-			for (int j = 0; j < 3; j++) {
-				if (i == 1 && j == 1) {
-					continue;
-				}
-				printStar(x + j * k / 3, y + i * k / 3, k / 3);
-			}
-
-		}
-
-	}
-
+    }
+    private static void draw(int y,int x,int size,boolean blank){
+          if(blank)return;
+          if(size==1){
+              stars[y][x] = true;
+              return;
+          }
+          int newSize = size/3;
+          draw(y,x,newSize,false);
+          draw(y,x+newSize,newSize,false);
+          draw(y,x+newSize*2,newSize,false);
+          draw(y+newSize,x,newSize,false);
+          draw(y+newSize,x+newSize,newSize,true);
+          draw(y+newSize,x+newSize*2,newSize,false);
+          draw(y+newSize*2,x,newSize,false);
+          draw(y+newSize*2,x+newSize,newSize,false);
+          draw(y+newSize*2,x+newSize*2,newSize,false);
+    }
 }
